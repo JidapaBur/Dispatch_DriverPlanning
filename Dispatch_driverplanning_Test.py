@@ -93,7 +93,7 @@ if order_file and location_file:
     routing.AddDimension(
         transit_cb_idx,
         0,        # slack
-        5000,     # max 5,000 meters per route
+        10000,     # max 5,000 meters per route
         True,     # start from 0
         distance_dimension_name
     )
