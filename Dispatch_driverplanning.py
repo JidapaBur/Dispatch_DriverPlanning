@@ -146,7 +146,19 @@ if order_file and location_file:
                 driver_results.append((f"Driver {vehicle_id + 1}", vehicle_eta))
 
 #------------------------------------------------------------------------------
-            
+
+# คำนวณจำนวนลูกค้าในแต่ละโซน
+zone_counts = merged_df['zone'].value_counts().to_dict()
+                
+# เตรียมข้อความแสดงผล
+sameday_count = zone_counts.get('sameday', 0)
+nextday_count = zone_counts.get('nextday', 0)
+                
+st.markdown(f"""
+📦 **Customer Zone Summary**  
+- Sameday: {zone_counts.get('sameday', 0)} customers  
+- Nextday: {zone_counts.get('nextday', 0)} customers
+""")
 
 #------------------------------------------------------------------------------
 
@@ -213,17 +225,5 @@ if order_file and location_file:
             st_folium(route_map, width=1600, height=900)
 
 #-------------------------------------------------------------------------
-# คำนวณจำนวนลูกค้าในแต่ละโซน
-zone_counts = merged_df['zone'].value_counts().to_dict()
-                
-# เตรียมข้อความแสดงผล
-sameday_count = zone_counts.get('sameday', 0)
-nextday_count = zone_counts.get('nextday', 0)
-                
-st.markdown(f"""
-📦 **Customer Zone Summary**  
-- Sameday: {zone_counts.get('sameday', 0)} customers  
-- Nextday: {zone_counts.get('nextday', 0)} customers
-""")
 
 
