@@ -33,6 +33,20 @@ if order_file and location_file:
 
     depot = (13.737469640166223, 100.63594745151381)
 
+#----------------------------------------------------------------------------------------
+    
+    zone_map = {
+    'AM': 'Ambient', 'AS': 'Ambient', 'AH': 'Ambient',
+    'VM': 'VM+01 C',
+    '20F': '20 C',
+    '01F': 'Frozen', 'FZ': 'Frozen'
+}
+
+if 'Picking Zone' in merged_df.columns:
+    merged_df['Picking Zone'] = merged_df['Picking Zone'].map(zone_map).fillna(merged_df['Picking Zone'])
+    
+#----------------------------------------------------------------------------------------
+    
     merged_df['order_datetime'] = pd.to_datetime(
         merged_df['Order Date'].astype(str) + ' ' + merged_df['Order Time'].astype(str),
         format='%d/%m/%Y %H:%M:%S', errors='coerce'
