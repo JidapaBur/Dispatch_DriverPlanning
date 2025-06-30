@@ -12,7 +12,7 @@ from ortools.constraint_solver import routing_enums_pb2, pywrapcp
 st.set_page_config(layout="wide")
 st.title("Driver Route Planner with ETA")
 # Footer note
-st.markdown("<div style='text-align:right; font-size:12px; color:gray;'>Version 1.0.1 Developed by Jidapa Buranachan</div>", unsafe_allow_html=True)
+st.markdown("<div style='text-align:right; font-size:12px; color:gray;'>Version 1.0.2 Developed by Jidapa Buranachan</div>", unsafe_allow_html=True)
 
 #------------------------------------------------------------------------------
 
@@ -88,6 +88,19 @@ if order_file and location_file:
     transit_cb_idx = routing.RegisterTransitCallback(distance_callback)
     routing.SetArcCostEvaluatorOfAllVehicles(transit_cb_idx)
 
+    # ✅ Add Distance dimension to limit each route to 5km (5000 meters)
+    distance_dimension_name = "Distance"
+    routing.AddDimension(
+        transit_cb_idx,
+        0,        # slack
+        10000,     # max 5,000 meters per route
+        True,     # start from 0
+        distance_dimension_name
+    )
+    
+    # (Optional) เข้าถึง object เพื่อ debug หรือดูค่าระยะในแต่ละ vehicle
+    distance_dimension = routing.GetDimensionOrDie(distance_dimension_name)
+    
 #------------------------------------------------------------------------------
     
     def demand_callback(from_index):
@@ -248,5 +261,4 @@ if order_file and location_file:
             st_folium(route_map, width=1600, height=900)
 
 #-------------------------------------------------------------------------
-
 
