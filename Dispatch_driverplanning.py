@@ -31,19 +31,22 @@ if order_file and location_file:
     location_df = pd.read_excel(location_file)
     merged_df = pd.merge(order_df, location_df, on='Order No', how='inner')
 
+    zone_map = {
+        'AM': 'Ambient', 'AS': 'Ambient', 'AH': 'Ambient',
+        'VM': 'VM+01 C',
+        '20F': '20 C',
+        '01F': 'Frozen', 'FZ': 'Frozen'
+    }
+    if 'Picking Zone' in merged_df.columns:
+        merged_df['Picking Zone'] = merged_df['Picking Zone'].map(zone_map).fillna(merged_df['Picking Zone'])
+    
     depot = (13.737469640166223, 100.63594745151381)
+
+
+
 
 #----------------------------------------------------------------------------------------
     
-    zone_map = {
-    'AM': 'Ambient', 'AS': 'Ambient', 'AH': 'Ambient',
-    'VM': 'VM+01 C',
-    '20F': '20 C',
-    '01F': 'Frozen', 'FZ': 'Frozen'
-}
-
-if 'Picking Zone' in merged_df.columns:
-    merged_df['Picking Zone'] = merged_df['Picking Zone'].map(zone_map).fillna(merged_df['Picking Zone'])
     
 #----------------------------------------------------------------------------------------
     
