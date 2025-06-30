@@ -32,6 +32,8 @@ if order_file and location_file:
     order_df = pd.read_excel(order_file)
     location_df = pd.read_excel(location_file)
     merged_df = pd.merge(order_df, location_df, on='Order No', how='inner')
+    merged_df = merged_df.drop_duplicates(subset=['Order No', 'LAT', 'LON'])
+
 
 #----------------------------------------------------------------------------------------
     
