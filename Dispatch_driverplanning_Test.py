@@ -16,11 +16,21 @@ st.markdown("<div style='text-align:right; font-size:12px; color:gray;'>Version 
 
 #------------------------------------------------------------------------------
 
-# Downloadable templates
-st.markdown("### Download Template Files")
+# Create template dataframe
 Loc_template = pd.DataFrame(columns=["Order No", "LAT", "LON"])
 
-st.download_button("⬇️ Download Order Location Template", Loc_template.to_excel(index=False).encode('utf-8-sig'), "OrderLocation.xlsx", "text/csv")
+# ใช้ BytesIO สำหรับ .xlsx
+excel_buffer = io.BytesIO()
+with pd.ExcelWriter(excel_buffer, engine='xlsxwriter') as writer:
+    Loc_template.to_excel(writer, index=False, sheet_name='OrderLocation')
+
+# ปุ่มดาวน์โหลด .xlsx
+st.download_button(
+    label="⬇️ Download Order Location Template (.xlsx)",
+    data=excel_buffer.getvalue(),
+    file_name="OrderLocation_Template.xlsx",
+    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+)
 
 #------------------------------------------------------------------------------
 
