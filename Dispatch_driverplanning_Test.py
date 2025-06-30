@@ -20,7 +20,7 @@ st.markdown("<div style='text-align:right; font-size:12px; color:gray;'>Version 
 st.markdown("### Download Template Files")
 Loc_template = pd.DataFrame(columns=["Order No", "LAT", "LON"])
 
-st.download_button("⬇️ Download Order Location Template", Loc_template.to_csv(index=False).encode('utf-8-sig'), "OrderLocation.csv", "text/csv")
+st.download_button("⬇️ Download Order Location Template", Loc_template.to_excel(index=False).encode('utf-8-sig'), "OrderLocation.xlsx", "text/csv")
 
 #------------------------------------------------------------------------------
 
