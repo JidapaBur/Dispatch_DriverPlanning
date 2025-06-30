@@ -146,21 +146,21 @@ if order_file and location_file:
                 driver_results.append((f"Driver {vehicle_id + 1}", vehicle_eta))
 
 #------------------------------------------------------------------------------
-
-            # คำนวณจำนวนลูกค้าในแต่ละโซน
-            zone_counts = merged_df['zone'].value_counts().to_dict()
             
-            # เตรียมข้อความแสดงผล
-            sameday_count = zone_counts.get('sameday', 0)
-            nextday_count = zone_counts.get('nextday', 0)
+# คำนวณจำนวนลูกค้าในแต่ละโซน
+zone_counts = merged_df['zone'].value_counts().to_dict()
             
-            zone_summary_text = f"""
-            📦 **Customer Zone Summary**
-            - Sameday: {sameday_count} customers
-            - Nextday: {nextday_count} customers
-            """
+# เตรียมข้อความแสดงผล
+sameday_count = zone_counts.get('sameday', 0)
+nextday_count = zone_counts.get('nextday', 0)
             
-            zone_summary_text.strip()
+zone_summary_text = f"""
+📦 **Customer Zone Summary**
+- Sameday: {sameday_count} customers
+- Nextday: {nextday_count} customers
+"""
+            
+zone_summary_text.strip()
 
 #------------------------------------------------------------------------------
 
