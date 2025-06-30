@@ -11,14 +11,14 @@ from ortools.constraint_solver import routing_enums_pb2, pywrapcp
 #------------------------------------------------------------------------------
 
 st.set_page_config(layout="wide")
-st.title("Driver Route Planner with ETA")
+st.title("Driver Route Planner with ETA - Store Vesion")
 # Footer note
 st.markdown("<div style='text-align:right; font-size:12px; color:gray;'>Version 1.0.2 Developed by Jidapa Buranachan</div>", unsafe_allow_html=True)
 
 #------------------------------------------------------------------------------
 
 # Create template dataframe
-Loc_template = pd.DataFrame(columns=["Order No", "LAT", "LON"])
+Loc_template = pd.DataFrame(columns=["Order No", "LAT", "LON", "OrderCreate_Date", "OrderCreate_Time"])
 
 # ใช้ BytesIO สำหรับ .xlsx
 excel_buffer = io.BytesIO()
@@ -36,7 +36,7 @@ st.download_button(
 #------------------------------------------------------------------------------
 
 # Upload files
-order_file = st.file_uploader("Upload OrderList.xlsx", type=["xlsx"], key="order")
+#order_file = st.file_uploader("Upload OrderList.xlsx", type=["xlsx"], key="order")
 location_file = st.file_uploader("Upload OrderLocation.xlsx", type=["xlsx"], key="location")
 
 #------------------------------------------------------------------------------
@@ -44,39 +44,23 @@ location_file = st.file_uploader("Upload OrderLocation.xlsx", type=["xlsx"], key
 # Parameters
 num_drivers = st.number_input("Number of Drivers", min_value=1, value=3, step=1)
 max_drops_per_driver = st.number_input("Max Drops per Driver", min_value=1, value=2, step=1)
+depot = st.number_input("Lat/Long of Store (ex. 13.737469640166223, 100.63594745151381)")
 
 #------------------------------------------------------------------------------
 
-if order_file and location_file:
-    order_df = pd.read_excel(order_file)
+if location_file:
     location_df = pd.read_excel(location_file)
-    merged_df = pd.merge(order_df, location_df, on='Order No', how='inner')
-    merged_df = merged_df.drop_duplicates(subset=['Order No', 'LAT', 'LON'])
+    merged_df = location_df.drop_duplicates(subset=['Order No', 'LAT', 'LON'])
 
 
 #----------------------------------------------------------------------------------------
     
-    # ✅ Map Picking Zone code → readable name
-    zone_map = {
-        'AM': 'Ambient', 'AS': 'Ambient', 'AH': 'Ambient',
-        'VM': 'VM+01 C',
-        '20F': '20 C',
-        '01F': 'Frozen', 'FZ': 'Frozen'
-    }
-    if 'Picking Zone' in merged_df.columns:
-        merged_df['Picking Zone'] = merged_df['Picking Zone'].map(zone_map).fillna(merged_df['Picking Zone'])
-
-        # ✅ เพิ่มตรงนี้เพื่อแยกเป็น column True/False
-        zone_types = ['Ambient', 'VM+01 C', '20 C', 'Frozen']
-        for zone in zone_types:
-            merged_df[zone] = merged_df['Picking Zone'] == zone
-    
-    depot = (13.737469640166223, 100.63594745151381)
+    depot = depot
     
 #----------------------------------------------------------------------------------------
     
     merged_df['order_datetime'] = pd.to_datetime(
-        merged_df['Order Date'].astype(str) + ' ' + merged_df['Order Time'].astype(str),
+        merged_df['OrderCreate_Date'].astype(str) + ' ' + merged_df['OrderCreate_Time'].astype(str),
         format='%d/%m/%Y %H:%M:%S', errors='coerce'
     )
     merged_df['distance_km'] = merged_df.apply(
