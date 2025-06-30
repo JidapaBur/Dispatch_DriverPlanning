@@ -31,6 +31,9 @@ if order_file and location_file:
     location_df = pd.read_excel(location_file)
     merged_df = pd.merge(order_df, location_df, on='Order No', how='inner')
 
+#----------------------------------------------------------------------------------------
+    
+    # ✅ Map Picking Zone code → readable name
     zone_map = {
         'AM': 'Ambient', 'AS': 'Ambient', 'AH': 'Ambient',
         'VM': 'VM+01 C',
@@ -39,14 +42,13 @@ if order_file and location_file:
     }
     if 'Picking Zone' in merged_df.columns:
         merged_df['Picking Zone'] = merged_df['Picking Zone'].map(zone_map).fillna(merged_df['Picking Zone'])
+
+        # ✅ เพิ่มตรงนี้เพื่อแยกเป็น column True/False
+        zone_types = ['Ambient', 'VM+01 C', '20 C', 'Frozen']
+        for zone in zone_types:
+            merged_df[zone] = merged_df['Picking Zone'] == zone
     
     depot = (13.737469640166223, 100.63594745151381)
-
-
-
-
-#----------------------------------------------------------------------------------------
-    
     
 #----------------------------------------------------------------------------------------
     
@@ -202,10 +204,10 @@ if order_file and location_file:
 
 #------------------------------------------------------------------------------
   
-            # Summary table
             summary_df = merged_df[[
                 'Order No', 'LAT', 'LON', 'distance_km', 'zone',
-                'order_datetime', 'delivery_deadline', 'Driver', 'Drop no.', 'ETA'
+                'order_datetime', 'delivery_deadline', 'Driver', 'Drop no.', 'ETA',
+                'Picking Zone', 'Ambient', 'VM+01 C', '20 C', 'Frozen'
             ]]
             st.subheader("Routing Summary")
             st.dataframe(summary_df)
