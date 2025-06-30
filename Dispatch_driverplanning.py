@@ -213,18 +213,17 @@ if order_file and location_file:
             st_folium(route_map, width=1600, height=900)
 
 #-------------------------------------------------------------------------
-    # คำนวณจำนวนลูกค้าในแต่ละโซน
-    zone_counts = merged_df['zone'].value_counts().to_dict()
+# คำนวณจำนวนลูกค้าในแต่ละโซน
+zone_counts = merged_df['zone'].value_counts().to_dict()
                 
-    # เตรียมข้อความแสดงผล
-    sameday_count = zone_counts.get('sameday', 0)
-    nextday_count = zone_counts.get('nextday', 0)
+# เตรียมข้อความแสดงผล
+sameday_count = zone_counts.get('sameday', 0)
+nextday_count = zone_counts.get('nextday', 0)
                 
-    zone_summary_text = f"""
-    📦 **Customer Zone Summary**
-    - Sameday: {sameday_count} customers
-    - Nextday: {nextday_count} customers
-    """
-                
-    zone_summary_text.strip()
+st.markdown(f"""
+📦 **Customer Zone Summary**  
+- Sameday: {zone_counts.get('sameday', 0)} customers  
+- Nextday: {zone_counts.get('nextday', 0)} customers
+""")
+
 
