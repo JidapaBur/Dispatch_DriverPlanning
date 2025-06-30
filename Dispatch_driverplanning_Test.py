@@ -88,13 +88,18 @@ if order_file and location_file:
     transit_cb_idx = routing.RegisterTransitCallback(distance_callback)
     routing.SetArcCostEvaluatorOfAllVehicles(transit_cb_idx)
 
+    # ✅ Add Distance dimension to limit each route to 5km (5000 meters)
+    distance_dimension_name = "Distance"
     routing.AddDimension(
-        transit_cb_idx,                # callback สำหรับระยะทาง
-        0,                             # ไม่มี slack
-        5000,                          # max distance per driver = 5,000 meters = 5 km
-        True,                          # start cumul to zero
-        "Distance"
+        transit_cb_idx,
+        0,        # slack
+        5000,     # max 5,000 meters per route
+        True,     # start from 0
+        distance_dimension_name
     )
+    
+    # (Optional) เข้าถึง object เพื่อ debug หรือดูค่าระยะในแต่ละ vehicle
+    distance_dimension = routing.GetDimensionOrDie(distance_dimension_name)
     
 #------------------------------------------------------------------------------
     
