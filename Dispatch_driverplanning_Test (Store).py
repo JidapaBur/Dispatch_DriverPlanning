@@ -60,9 +60,6 @@ if location_file:
     
 #----------------------------------------------------------------------------------------
     
-    merged_df['order_datetime'] = pd.to_datetime(
-        format='%d/%m/%Y %H:%M', errors='coerce'
-    )
     merged_df['distance_km'] = merged_df.apply(
         lambda row: geodesic((row['LAT'], row['LON']), depot).km, axis=1
     )
