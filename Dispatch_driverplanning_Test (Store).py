@@ -18,7 +18,7 @@ st.markdown("<div style='text-align:right; font-size:12px; color:gray;'>Version 
 #------------------------------------------------------------------------------
 
 # Create template dataframe
-Loc_template = pd.DataFrame(columns=["Order No", "LAT", "LON", "OrderCreate_Date", "OrderCreate_Time"])
+Loc_template = pd.DataFrame(columns=["Order No", "LAT", "LON", "order_datetime"])
 
 # ใช้ BytesIO สำหรับ .xlsx
 excel_buffer = io.BytesIO()
@@ -61,7 +61,6 @@ if location_file:
 #----------------------------------------------------------------------------------------
     
     merged_df['order_datetime'] = pd.to_datetime(
-        merged_df['OrderCreate_Date'].astype(str) + ' ' + merged_df['OrderCreate_Time'].astype(str),
         format='%d/%m/%Y %H:%M', errors='coerce'
     )
     merged_df['distance_km'] = merged_df.apply(
