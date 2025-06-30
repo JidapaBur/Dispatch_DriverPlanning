@@ -88,6 +88,15 @@ if order_file and location_file:
     transit_cb_idx = routing.RegisterTransitCallback(distance_callback)
     routing.SetArcCostEvaluatorOfAllVehicles(transit_cb_idx)
 
+    # ✅ จำกัดระยะทางรวมต่อ vehicle ไม่เกิน 5 km
+    routing.AddDimension(
+        transit_cb_idx,
+        0,
+        5000,  # 5 km per vehicle
+        True,
+        "Distance"
+    )
+
 #------------------------------------------------------------------------------
     
     def demand_callback(from_index):
