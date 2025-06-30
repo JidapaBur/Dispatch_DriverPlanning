@@ -88,6 +88,14 @@ if order_file and location_file:
     transit_cb_idx = routing.RegisterTransitCallback(distance_callback)
     routing.SetArcCostEvaluatorOfAllVehicles(transit_cb_idx)
 
+    routing.AddDimension(
+        transit_cb_idx,                # callback สำหรับระยะทาง
+        0,                             # ไม่มี slack
+        5000,                          # max distance per driver = 5,000 meters = 5 km
+        True,                          # start cumul to zero
+        "Distance"
+    )
+    
 #------------------------------------------------------------------------------
     
     def demand_callback(from_index):
