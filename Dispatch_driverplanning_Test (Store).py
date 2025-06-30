@@ -44,23 +44,19 @@ location_file = st.file_uploader("Upload OrderLocation.xlsx", type=["xlsx"], key
 # Parameters
 num_drivers = st.number_input("Number of Drivers", min_value=1, value=3, step=1)
 max_drops_per_driver = st.number_input("Max Drops per Driver", min_value=1, value=2, step=1)
-depot_input = st.text_input("Lat,Long of Depot", value="13.737469640166223, 100.63594745151381")
-try:
-    depot = tuple(map(float, depot_input.split(",")))
-except:
-    st.error("❌ Invalid Lat/Long format. Use format: 13.73,100.63")
-    depot = None
+col1, col2 = st.columns(2)
+with col1:
+    depot_lat = st.number_input("Depot Latitude", format="%.8f")
+with col2:
+    depot_lon = st.number_input("Depot Longitude", format="%.8f")
+
+depot = (depot_lat, depot_lon)
 
 #------------------------------------------------------------------------------
 
 if location_file:
     location_df = pd.read_excel(location_file)
     merged_df = location_df.drop_duplicates(subset=['Order No', 'LAT', 'LON'])
-
-
-#----------------------------------------------------------------------------------------
-    
-    depot = depot
     
 #----------------------------------------------------------------------------------------
     
