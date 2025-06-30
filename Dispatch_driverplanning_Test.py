@@ -16,27 +16,13 @@ st.markdown("<div style='text-align:right; font-size:12px; color:gray;'>Version 
 
 #------------------------------------------------------------------------------
 
-template_button_code = '''
+# Downloadable templates
+st.markdown("### Download Template Files")
+Loc_template = pd.DataFrame(columns=["Order No", "LAT", "LON"])
 
-    # 📥 Download Template: OrderLocation
-    import io
-    order_location_template = pd.DataFrame({
-        'Order No': ['ORDER123', 'ORDER456'],
-        'LAT': [13.736717, 13.745],
-        'LON': [100.523186, 100.532]
-    })
-
-    st.sidebar.subheader("📄 Download Templates")
-    csv_buffer = io.BytesIO()
-    with pd.ExcelWriter(csv_buffer, engine='xlsxwriter') as writer:
-        order_location_template.to_excel(writer, sheet_name='OrderLocation', index=False)
-    st.sidebar.download_button(
-        label="Download OrderLocation Template",
-        data=csv_buffer.getvalue(),
-        file_name='OrderLocation_Template.xlsx',
-        mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-    )
-'''
+col1 = st.columns(1)
+with col1:
+    st.download_button("⬇️ Download Order Location Template", Loc_template.to_csv(index=False).encode('utf-8-sig'), "OrderLocation.csv", "text/csv")
 
 #------------------------------------------------------------------------------
 
