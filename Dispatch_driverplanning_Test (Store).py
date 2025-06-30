@@ -223,8 +223,7 @@ if location_file:
   
             summary_df = merged_df[[
                 'Order No', 'LAT', 'LON', 'distance_km', 'zone',
-                'order_datetime', 'delivery_deadline', 'Driver', 'Drop no.', 'ETA',
-                'Picking Zone', 'Ambient', 'VM+01 C', '20 C', 'Frozen'
+                'order_datetime', 'delivery_deadline', 'Driver', 'Drop no.', 'ETA'
             ]]
             st.subheader("Routing Summary")
             st.dataframe(summary_df)
