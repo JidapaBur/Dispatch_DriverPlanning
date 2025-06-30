@@ -17,7 +17,7 @@ st.markdown("<div style='text-align:right; font-size:12px; color:gray;'>Version 
 #------------------------------------------------------------------------------
 
 
-template_button_code = '''
+template_button_code =
 
     # 📥 Download Template: OrderLocation
     import io
@@ -37,7 +37,6 @@ template_button_code = '''
         file_name='OrderLocation_Template.xlsx',
         mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
     )
-'''
 
 #------------------------------------------------------------------------------
 
