@@ -10,7 +10,7 @@ from ortools.constraint_solver import routing_enums_pb2, pywrapcp
 #------------------------------------------------------------------------------
 
 st.set_page_config(layout="wide")
-st.title("Driver Route Planner with ETA")
+st.title("Rider Route Plannning with ETA")
 # Footer note
 st.markdown("<div style='text-align:right; font-size:12px; color:gray;'>Version 1.0.2 Developed by Jidapa Buranachan</div>", unsafe_allow_html=True)
 
