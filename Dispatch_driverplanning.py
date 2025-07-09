@@ -199,7 +199,7 @@ if order_file and location_file:
 #------------------------------------------------------------------------------
 
             # Map visualization 1
-            m = folium.Map(location=depot, zoom_start=12)
+            m = folium.Map(location=depot, zoom_start=12, control_scale=True))
             color_map = {'sameday': 'green', 'nextday': 'red'}
             
             # วาดจุดศูนย์กลาง
@@ -217,7 +217,7 @@ if order_file and location_file:
             
             # เพิ่มวงรัศมี 5 กม. (เส้นขอบโซน sameday)
             folium.Circle(location=depot, radius=5000, color='gray', fill=False).add_to(m)
-            st_folium(m, width=1600, height=900)
+            st_folium(m, width=1600, height=900, returned_objects=[], feature_group_to_add=None, center=[13.75, 100.5], zoom=6)
 
 #------------------------------------------------------------------------------
   
@@ -233,7 +233,7 @@ if order_file and location_file:
             
             # Map visualization 2
             st.subheader("Route Map")
-            route_map = folium.Map(location=depot, zoom_start=12)
+            route_map = folium.Map(location=depot, zoom_start=12,  control_scale=True))
             colors = ['red', 'blue', 'green', 'purple', 'orange', 'darkred']
             folium.Marker(depot, popup='Depot', icon=folium.Icon(color='black')).add_to(route_map)
 
@@ -258,7 +258,7 @@ if order_file and location_file:
                                   icon=folium.Icon(color=colors[vehicle_id % len(colors)], icon='truck', prefix='fa'),
                                   popup=f"Driver {vehicle_id + 1} - Stop {i}").add_to(route_map)
 
-            st_folium(route_map, width=1600, height=900)
+            st_folium(route_map, width=1600, height=900, returned_objects=[], feature_group_to_add=None, center=[13.75, 100.5], zoom=6)
 
 #-------------------------------------------------------------------------
 
