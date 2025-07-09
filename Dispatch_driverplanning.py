@@ -233,7 +233,7 @@ if order_file and location_file:
             
             # Map visualization 2
             st.subheader("Route Map")
-            route_map = folium.Map(location=depot, zoom_start=12,  control_scale=True))
+            route_map = folium.Map(location=depot, zoom_start=12,  control_scale=True)
             colors = ['red', 'blue', 'green', 'purple', 'orange', 'darkred']
             folium.Marker(depot, popup='Depot', icon=folium.Icon(color='black')).add_to(route_map)
 
