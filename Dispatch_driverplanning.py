@@ -199,7 +199,7 @@ if order_file and location_file:
 #------------------------------------------------------------------------------
 
             # Map visualization 1
-            m = folium.Map(location=depot, zoom_start=12, control_scale=True))
+            m = folium.Map(location=depot, zoom_start=12, control_scale=True)
             color_map = {'sameday': 'green', 'nextday': 'red'}
             
             # วาดจุดศูนย์กลาง
