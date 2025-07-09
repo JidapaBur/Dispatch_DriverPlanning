@@ -217,7 +217,7 @@ if order_file and location_file:
             
             # เพิ่มวงรัศมี 5 กม. (เส้นขอบโซน sameday)
             folium.Circle(location=depot, radius=5000, color='gray', fill=False).add_to(m)
-            st_folium(m, width=1600, height=900, returned_objects=[], feature_group_to_add=None, center=[13.75, 100.5], zoom=13)
+            st_folium(m, width=1600, height=900, returned_objects=[], feature_group_to_add=None, zoom=13)
 
 #------------------------------------------------------------------------------
   
@@ -258,7 +258,7 @@ if order_file and location_file:
                                   icon=folium.Icon(color=colors[vehicle_id % len(colors)], icon='truck', prefix='fa'),
                                   popup=f"Driver {vehicle_id + 1} - Stop {i}").add_to(route_map)
 
-            st_folium(route_map, width=1600, height=900, returned_objects=[], feature_group_to_add=None, center=[13.75, 100.5], zoom=13)
+            st_folium(route_map, width=1600, height=900, returned_objects=[], feature_group_to_add=None, zoom=13)
 
 #-------------------------------------------------------------------------
 
